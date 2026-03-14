@@ -1,0 +1,16 @@
+# Hello World in Spanish
+imprimir("¡Hola Mundo! (Hello World)")
+
+funcion saludar(nombre):
+    si nombre == "BCIT":
+        regresar "¡Bienvenidos al Hackathon!"
+    sino:
+        regresar "Hola, " + nombre
+
+imprimir(saludar("BCIT"))
+
+intentar:
+    para i en rango(3):
+        imprimir("Conteo:", i)
+excepto:
+    imprimir("¡Ocurrió un error!")
