@@ -1,6 +1,8 @@
 {
   "name": "atty",
   "displayName": "아띠 atty",
+  "publisher": "atty",
+  "repository": {"type": "git", "url": "https://github.com/ylim3104/atty"},
   "description": "",
   "version": "0.0.1",
   "engines": {
@@ -14,12 +16,54 @@
   ],
   "main": "./src/atty_linters/pythonParser.js",
   "contributes": {
+    "languages": [
+      {
+        "id": "atty",
+        "aliases": ["Atty", "atty"],
+        "extensions": [".atty"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "atty",
+        "scopeName": "source.atty",
+        "path": "./syntaxes/atty.tmLanguage.json"
+      }
+    ],
     "commands": [
       {
-        "command": "atty.helloWorld",
-        "title": "Hello World"
+        "command": "atty.runCode",
+        "title": "Atty: Run Translated Code",
+        "icon": "$(play)"
+      },
+      {
+        "command": "atty.exportPython",
+        "title": "Atty: Export to Python (.py)",
+        "icon": "$(save-as)"
       }
-    ]
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "atty.runCode",
+          "when": "resourceExtname == .atty",
+          "group": "navigation"
+        },
+        {
+          "command": "atty.exportPython",
+          "when": "resourceExtname == .atty",
+          "group": "navigation@2"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "atty.exportPython",
+          "when": "resourceExtname == .atty",
+          "group": "2_workspace"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",

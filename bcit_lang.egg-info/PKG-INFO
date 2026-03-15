@@ -1,0 +1,10 @@
+Metadata-Version: 2.4
+Name: bcit-lang
+Version: 1.0.0
+Summary: A multilingual Python interpreter for Korean, Spanish, and Farsi
+Author: BCIT Hackathon Team
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Dynamic: author
+Dynamic: classifier
+Dynamic: summary

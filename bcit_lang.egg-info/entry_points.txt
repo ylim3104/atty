@@ -1,0 +1,2 @@
+[console_scripts]
+bcit = interpreter_v4:main

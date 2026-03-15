@@ -1,0 +1,6 @@
+# Farsi: Using a variable that was never defined
+x = 10
+
+اگر x > 5:
+    # y doesn't exist! This will trigger a NameError
+    چاپ(y) 
