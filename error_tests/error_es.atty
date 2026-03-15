@@ -1,0 +1,6 @@
+# Spanish: Trying to add a string and a number
+nombre = "Carlos"
+edad = 20
+
+# This will trigger a TypeError
+imprimir(nombre + edad)

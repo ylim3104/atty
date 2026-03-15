@@ -81,10 +81,10 @@ export function activate(context: vscode.ExtensionContext) {
 
         // Notice the --output-py flag added here
         exec(`python "${pythonScript}" "${filePath}" --output-py`, options, (error, stdout, stderr) => {
-            if (stdout) outputChannel.appendLine(stdout);
-            if (stderr) outputChannel.appendLine(`ERROR:\n${stderr}`);
-            if (error) outputChannel.appendLine(`EXECUTION ERROR:\n${error.message}`);
-            
+            if (stdout) { outputChannel.appendLine(stdout); }
+            if (stderr) { outputChannel.appendLine(`ERROR:\n${stderr}`); }
+            if (error) { outputChannel.appendLine(`EXECUTION ERROR:\n${error.message}`); }
+
             vscode.window.showInformationMessage("Successfully exported to .py!");
             outputChannel.appendLine("-----------------------------------");
         });
