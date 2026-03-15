@@ -101,22 +101,6 @@ atty path/to/file.atty --output-py
 
 Atty includes interactive learning features inside the VS Code extension such as **typing quizzes, inline hints, and a learning mode**.
 
-Judges can easily test these features using the following steps.
-
-### Run the Extension in Development Mode
-
-1. Open the project folder in **VS Code**.
-2. Install dependencies:
-
-```bash
-npm install
-
-Compile the extension:
-npm run compile
-
-Press F5 to launch the Extension Development Host window.
-This new window is the testing environment where the extension runs.
-
 Feature 1: Select Working Language
 Before using the quiz or learning features, select a working language.
 
