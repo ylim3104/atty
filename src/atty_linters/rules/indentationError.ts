@@ -1,0 +1,165 @@
+import { BaseRule } from './baseRule';
+import * as vscode from 'vscode';
+import Parser = require('tree-sitter');
+
+export class IndentationError extends BaseRule {
+
+    private messages: any = null;
+    private dictionary: any = null;
+    private keywords: Set<string> = new Set();
+
+    // prevent duplicate diagnostics
+    private visitedLines: Set<number> = new Set();
+
+    constructor(language: string) {
+        super(language);
+
+        console.log("[IndentationError] constructor:", language);
+
+        try {
+            this.messages = require(`../lint_dicts/${language}.json`);
+        } catch (e) {
+            console.error("[IndentationError] message load failed", e);
+        }
+
+        try {
+            this.dictionary = require(`../../../dicts/${language}_en.json`);
+        } catch (e) {
+            console.error("[IndentationError] dictionary load failed", e);
+        }
+
+        this.initializeKeywords();
+    }
+
+    private initializeKeywords() {
+
+        if (!this.dictionary) {
+            console.warn("[IndentationError] dictionary missing");
+            return;
+        }
+
+        const targets = [
+            "if",
+            "elif",
+            "else",
+            "for",
+            "while",
+            "def",
+            "class",
+            "try",
+            "except",
+            "finally",
+            "with"
+        ];
+
+        console.log("[IndentationError] building keyword map");
+
+        for (const t of targets) {
+
+            const key = Object.keys(this.dictionary).find(
+                k => this.dictionary[k] === t
+            );
+
+            if (key) {
+                this.keywords.add(key);
+                console.log(`mapped ${key} -> ${t}`);
+            }
+        }
+
+        console.log("[IndentationError] keywords:", this.keywords);
+    }
+
+    public walk(
+        diagnostics: vscode.Diagnostic[],
+        node: Parser.SyntaxNode,
+        depth: number = 0
+    ) {
+
+        if (!node || !node.children) return;
+
+        console.log(
+            "[IndentationError] node:",
+            node.type,
+            "row:", node.startPosition.row,
+            "col:", node.startPosition.column
+        );
+
+        const keywordChild = node.children.find(child =>
+            this.keywords.has(child.text)
+        );
+
+        const hasColon = node.children.some(
+            child => child.text === ":" || child.type === ":"
+        );
+
+        console.log(
+            "[IndentationError] keyword:",
+            keywordChild?.text,
+            "colon:", hasColon
+        );
+
+        // Only evaluate block keywords
+        if (keywordChild && hasColon) {
+
+            const editor = vscode.window.activeTextEditor;
+            if (!editor) return;
+
+            const document = editor.document;
+
+            const parentIndent = node.startPosition.column;
+            let nextLine = node.endPosition.row + 1;
+
+            // Skip empty lines
+            while (nextLine < document.lineCount &&
+                document.lineAt(nextLine).text.trim() === "") {
+                nextLine++;
+            }
+
+            if (nextLine >= document.lineCount) return;
+
+            // Avoid duplicate diagnostics
+            if (this.visitedLines.has(nextLine)) return;
+
+            const nextText = document.lineAt(nextLine).text;
+
+            const indentMatch = nextText.match(/^\s*/);
+            const nextIndent = indentMatch ? indentMatch[0].length : 0;
+
+            console.log(
+                "[IndentationError]",
+                "parentIndent =", parentIndent,
+                "nextIndent =", nextIndent
+            );
+
+            if (nextIndent <= parentIndent) {
+
+                console.log("[IndentationError] ERROR DETECTED");
+
+                const range = new vscode.Range(
+                    nextLine,
+                    0,
+                    nextLine,
+                    nextText.length
+                );
+
+                const diagnostic = new vscode.Diagnostic(
+                    range,
+                    this.messages?.indentationError ??
+                    "IndentationError: expected an indented block",
+                    vscode.DiagnosticSeverity.Error
+                );
+
+                diagnostics.push(diagnostic);
+
+                this.visitedLines.add(nextLine);
+
+                console.log("[IndentationError] diagnostic added");
+            }
+        }
+
+        // Recursive AST traversal
+        for (const child of node.children) {
+            this.walk(diagnostics, child, depth + 1);
+        }
+    }
+}

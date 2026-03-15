@@ -36,8 +36,6 @@ export class CompareNone extends BaseRule {
             let hasNone = false;
 
             for (const child of node.children) {
-                const indent = '  '.repeat(depth);
-                console.log(`${indent}   - Child Node: [${child.type}] | Text: ${child.text}`);
                 if (child.type === '==') hasDoubleEquals = true;
                 if (child.type === 'identifier' && child.text === none) hasNone = true;
             }

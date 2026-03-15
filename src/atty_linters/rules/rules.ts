@@ -18,6 +18,8 @@ import { FileNotClosed } from "./fileNotClosed";
 import { UnusedVariable } from "./unusedVariable";
 import { UseDictComprehension } from "./useDictComprehension";
 
+import { SyntaxMissingColon } from './syntaxMissingColon';
+import { IndentationError } from './indentationError';
 
 export class Rules {
     language: string;
@@ -25,7 +27,7 @@ export class Rules {
     
     constructor(language: string) {
         this.language = language;
-        this.ruleList = [new CompareNone(language), new MissingArgument(language), new BreakOutsideLoop(language), new ReturnOutsideFunction(language), new UnclosedBracketOrString(language), new ImportNotFound(language), new ZeroDivisionErrorRule(language), new BareExcept(language), new UnusedImport(language), new UnreachableCode(language), new RedefinedBuiltin(language), new MutableDefaultArg(language), new UseEnumerate(language), new FileNotClosed(language), new UnusedVariable(language), new UseDictComprehension(language)];
+        this.ruleList = [new CompareNone(language), new SyntaxMissingColon(language), new MissingArgument(language), new BreakOutsideLoop(language), new ReturnOutsideFunction(language), new UnclosedBracketOrString(language), new ImportNotFound(language), new ZeroDivisionErrorRule(language), new BareExcept(language), new UnusedImport(language), new UnreachableCode(language), new RedefinedBuiltin(language), new MutableDefaultArg(language), new UseEnumerate(language), new FileNotClosed(language), new UnusedVariable(language), new UseDictComprehension(language)];
     }
 
     public run(diagnostics: vscode.Diagnostic[], node: Parser.SyntaxNode) {

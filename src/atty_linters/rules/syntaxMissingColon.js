@@ -33,19 +33,20 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CompareNone = void 0;
+exports.SyntaxMissingColon = void 0;
 const baseRule_1 = require("./baseRule");
 const vscode = __importStar(require("vscode"));
-class CompareNone extends baseRule_1.BaseRule {
+class SyntaxMissingColon extends baseRule_1.BaseRule {
     messages;
     dictionary;
+    keywords = new Set();
     constructor(language) {
         super(language);
         try {
             this.messages = require(`../lint_dicts/${language}.json`);
         }
         catch (e) {
-            console.error('Failed to load lint dictionary:', e);
+            console.error('Failed to                                    load lint dictionary:', e);
         }
         try {
             this.dictionary = require(`../../../dicts/${language}_en.json`);
@@ -53,34 +54,34 @@ class CompareNone extends baseRule_1.BaseRule {
         catch (e) {
             console.error('Failed to load lint dictionary:', e);
         }
+        this.keywords = new Set();
+        this.initializeKeywords();
     }
-    getKeyByValue(object, value) {
-        return Object.keys(object).find(key => object[key] === value);
+    initializeKeywords() {
+        const targets = ["if", "elif", "else", "for", "while", "def", "class", "try"];
+        targets.forEach(val => {
+            const key = Object.keys(this.dictionary).find(k => this.dictionary[k] === val);
+            if (key)
+                this.keywords.add(key);
+        });
     }
     walk(diagnostics, node, depth = 0) {
         if (!this.messages)
             return;
-        const compareNone = this.messages.compareNone;
-        const none = this.getKeyByValue(this.dictionary, "None");
-        if (node.type === 'comparison_operator') {
-            let hasDoubleEquals = false;
-            let hasNone = false;
-            for (const child of node.children) {
-                if (child.type === '==')
-                    hasDoubleEquals = true;
-                if (child.type === 'identifier' && child.text === none)
-                    hasNone = true;
-            }
-            if (hasDoubleEquals && hasNone) {
+        const keywordChild = node.children.find(child => this.keywords.has(child.text));
+        const hasColon = node.children.some(child => child.type === ':' || child.text === ':');
+        if (keywordChild && !hasColon) {
+            const blockTypes = ['if_statement', 'for_statement', 'function_definition', 'class_definition', 'while_statement', 'ERROR'];
+            if (blockTypes.includes(node.type)) {
                 const range = new vscode.Range(node.startPosition.row, node.startPosition.column, node.endPosition.row, node.endPosition.column);
-                const diagnostic = new vscode.Diagnostic(range, compareNone, vscode.DiagnosticSeverity.Warning);
+                const diagnostic = new vscode.Diagnostic(range, this.messages.syntaxMissingColon, vscode.DiagnosticSeverity.Error);
                 diagnostics.push(diagnostic);
             }
         }
         for (const child of node.children) {
-            this.walk(diagnostics, child, depth + 1);
+            this.walk(diagnostics, child);
         }
     }
 }
-exports.CompareNone = CompareNone;
-//# sourceMappingURL=compareNone.js.map
+exports.SyntaxMissingColon = SyntaxMissingColon;
+//# sourceMappingURL=syntaxMissingColon.js.map

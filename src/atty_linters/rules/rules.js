@@ -17,12 +17,13 @@ const useEnumerate_1 = require("./useEnumerate");
 const fileNotClosed_1 = require("./fileNotClosed");
 const unusedVariable_1 = require("./unusedVariable");
 const useDictComprehension_1 = require("./useDictComprehension");
+const syntaxMissingColon_1 = require("./syntaxMissingColon");
 class Rules {
     language;
     ruleList;
     constructor(language) {
         this.language = language;
-        this.ruleList = [new compareNone_1.CompareNone(language), new missingArgument_1.MissingArgument(language), new breakOutsideLoop_1.BreakOutsideLoop(language), new returnOutsideFunction_1.ReturnOutsideFunction(language), new unclosedBracketOrString_1.UnclosedBracketOrString(language), new importNotFound_1.ImportNotFound(language), new zeroDivisionError_1.ZeroDivisionErrorRule(language), new bareExcept_1.BareExcept(language), new unusedImport_1.UnusedImport(language), new unreachableCode_1.UnreachableCode(language), new redefinedBuiltin_1.RedefinedBuiltin(language), new mutableDefaultArg_1.MutableDefaultArg(language), new useEnumerate_1.UseEnumerate(language), new fileNotClosed_1.FileNotClosed(language), new unusedVariable_1.UnusedVariable(language), new useDictComprehension_1.UseDictComprehension(language)];
+        this.ruleList = [new compareNone_1.CompareNone(language), new syntaxMissingColon_1.SyntaxMissingColon(language), new missingArgument_1.MissingArgument(language), new breakOutsideLoop_1.BreakOutsideLoop(language), new returnOutsideFunction_1.ReturnOutsideFunction(language), new unclosedBracketOrString_1.UnclosedBracketOrString(language), new importNotFound_1.ImportNotFound(language), new zeroDivisionError_1.ZeroDivisionErrorRule(language), new bareExcept_1.BareExcept(language), new unusedImport_1.UnusedImport(language), new unreachableCode_1.UnreachableCode(language), new redefinedBuiltin_1.RedefinedBuiltin(language), new mutableDefaultArg_1.MutableDefaultArg(language), new useEnumerate_1.UseEnumerate(language), new fileNotClosed_1.FileNotClosed(language), new unusedVariable_1.UnusedVariable(language), new useDictComprehension_1.UseDictComprehension(language)];
     }
     run(diagnostics, node) {
         this.ruleList.forEach((rule) => { rule.walk(diagnostics, node); });

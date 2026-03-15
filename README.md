@@ -21,6 +21,7 @@ Most beginner programming tools assume the learner already understands English. 
 - **VS Code Extension**: Run code directly from the editor with a custom "Play" button, and enjoy native syntax highlighting via our custom `.tmLanguage.json` TextMate grammar.
 - **CLI Tool**: Run `atty file.atty` directly from your terminal.
 - **Export to Python**: Optionally export your code to a standard English `.py` file to share with others.
+- **Built-in Linter Rules**: Helps beginners catch common syntax mistakes early with specific checks like `syntaxMissingColon`, `unclosedBracketOrString`, and `compareNone`.
 - **AI Error Explanations (Zero-Dependency)**: Automatically catches Python tracebacks and sends them to the Gemini 2.5 Flash API to generate a beginner-friendly explanation in the user's native language.
 
 ## 🛠 Project Structure

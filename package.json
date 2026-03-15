@@ -17,7 +17,7 @@
   "activationEvents": [
     "onLanguage:python"
   ],
-  "main": "./src/atty_linters/pythonParser.js",
+  "main": "./dist/extension.js",
   "contributes": {
     "languages": [
       {
@@ -49,6 +49,22 @@
         "command": "atty.exportPython",
         "title": "Atty: Export to Python (.py)",
         "icon": "$(save-as)"
+      },
+      {
+        "command": "atty.helloWorld",
+        "title": "Hello World"
+      },
+      {
+        "command": "atty.startLearningMode",
+        "title": "Start Learning Mode"
+      },
+      {
+        "command": "atty.replaceWord",
+        "title": "Replace Word With Translation"
+      },
+      {
+        "command": "atty.selectLanguage",
+        "title": "Select Working Language"
       }
     ],
     "menus": {
@@ -100,6 +116,7 @@
     "typescript-eslint": "^8.56.1"
   },
   "dependencies": {
+    "eld": "^2.0.2",
     "tree-sitter": "^0.25.0",
     "tree-sitter-python": "^0.25.0"
   }
