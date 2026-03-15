@@ -1,0 +1,41 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Atty Language",
+    "patterns": [
+        {
+            "include": "#keywords"
+        },
+        {
+            "include": "#strings"
+        },
+        {
+            "include": "#comments"
+        }
+    ],
+    "repository": {
+        "keywords": {
+            "patterns": [
+                {
+                    "name": "keyword.control.atty",
+                    "match": "\\b(람다|함수|escribir|입력|de|تابع|غیرمحلی|filtrar|참|چاپ|실수|indice|محدوده|확인|sinosi|para|entero|abs|درغیراین‌صورت|길이|توقف|بجز|ورودی|در|최대|به‌عنوان|예외|نگاشت|인덱스|복사|문자열|minimo|전역|copiar|تولید|ایجاد|با|clase|بازکردن|abrir|쓰기|لیست|필터|مادامی‌که|열거|삭제|تلاش|읽기|حداکثر|agregar|بستن|ingresar|افزودن|کپی|정수|함께|نه|lanzar|mapear|아님|صحیح|asincrono|تعداد|rango|حذف|حداقل|계속|longitud|مطلق|برای|출력|flotante|suma|finalmente|전달|발생|동안|گردکردن|booleano|불린|esperar|생성|si|producir|범위|importar|클래스|열기|contar|conjunto|절대값|닫기|pasar|بازگشت|지도|Verdadero|excepto|ادامه|تایید|개수|반환|cadena|intentar|대기|안에|اعشاری|لامبدا|아니면|فیلتر|انتظار|درست|طول|از|아니면만약|no|이다|funcion|y|en|لغت‌نامه|시도|شمارش|global|وگرنه|mientras|합계|중단|o|leer|거짓|اگر|هیچ|만약|نوشتن|remover|واردکردن|목록|사전|최소|diccionario|그리고|بولی|درنهایت|borrar|마침내|شاخص|정렬|گذر|ordenar|반복|가져오기|es|처럼|یا|afirmar|سراسری|Nada|부터|romper|반올림|مرتب‌سازی|con|nolocal|غلط|imprimir|비동기|Falso|کلاس|지우기|없음|است|추가|maximo|ناهمگام|regresar|비지역|مجموعه|رشته|و|خواندن|جمع|sino|redondear|برداشتن|lista|cerrar|또는|lambda|집합|como|continuar|enumerar)\\b"
+                }
+            ]
+        },
+        "strings": {
+            "name": "string.quoted.double.atty",
+            "begin": "\"",
+            "end": "\"",
+            "patterns": [
+                {
+                    "name": "constant.character.escape.atty",
+                    "match": "\\\\."
+                }
+            ]
+        },
+        "comments": {
+            "name": "comment.line.number-sign.atty",
+            "match": "#.*$"
+        }
+    },
+    "scopeName": "source.atty"
+}
