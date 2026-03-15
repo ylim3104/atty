@@ -1,182 +1,116 @@
-```md
-# Atty
+# Atty 🌎🐍
 
-Atty is a multilingual Python learning tool that lets beginners write Python-style code using their native language and run it directly. It currently supports Korean, Spanish, and Farsi, then translates those keywords into standard Python before execution. [code_file:29][code_file:34][code_file:35][code_file:36]
+Atty is a multilingual Python learning tool that lets beginners write Python-style code using their native language and run it directly. It currently supports **Korean, Spanish, and Farsi**, translating native keywords into standard Python before execution. 
+
+Built for the BCIT Hackathon!
 
 ## Why Atty?
 
-Most beginner programming tools assume the learner already understands English programming keywords. Atty lowers that barrier by allowing learners to write familiar control flow and built-in function names in their own language, while still using Python under the hood. [code_file:34][code_file:35][code_file:36]
+Most beginner programming tools assume the learner already understands English. Atty lowers the barrier to entry by allowing learners to write familiar control flow (`if`, `for`, `while`) and built-in functions (`print`, `input`) in their own language, while still leveraging the full power of Python under the hood.
 
-For example, instead of writing `print("Hello World")`, a learner can write the equivalent keyword in Korean, Spanish, or Farsi and run it through Atty. [code_file:30][code_file:31][code_file:32]
+## ✨ Features
 
-## Features
+- **Native Language Coding**: Write code using translated keywords in Korean, Spanish, or Farsi.
+- **Auto-Language Detection**: Atty automatically detects the language of a source file based on keyword weighting.
+- **Seamless Execution**: Translates code into standard Python and executes it instantly in memory.
+- **VS Code Extension**: Run code directly from the editor with a custom "Play" button, and enjoy native syntax highlighting via our custom `.tmLanguage.json` TextMate grammar.
+- **CLI Tool**: Run `atty file.atty` directly from your terminal.
+- **Export to Python**: Optionally export your code to a standard English `.py` file to share with others.
+- **AI Error Explanations (Zero-Dependency)**: Automatically catches Python tracebacks and sends them to the Gemini 2.5 Flash API to generate a beginner-friendly explanation in the user's native language.
 
-- Write Python-like code with translated keywords in Korean, Spanish, or Farsi. [code_file:34][code_file:35][code_file:36]
-- Detect the language of a source file automatically by matching dictionary keywords found in the file. [code_file:29]
-- Translate the source code into standard Python and execute it immediately. [code_file:23][code_file:29]
-- Optionally export the translated English Python file using a command-line flag. [code_file:23][code_file:29][code_file:105]
-- Run code from a VS Code extension using a play button / command integration. [code_file:82]
-- Optionally send Python errors to a local Ollama model for beginner-friendly explanations in the detected language. [code_file:106]
-
-## Supported languages
-
-- Korean [code_file:36]
-- Spanish [code_file:34]
-- Farsi [code_file:35]
-
-## How it works
-
-Atty reads your source file, detects which supported language it most closely matches, replaces translated keywords with their standard Python equivalents, and then executes the translated result. [code_file:29][code_file:105]
-
-The keyword dictionaries currently include the full standard Python keyword set plus a broader group of commonly used built-ins and methods such as `print`, `input`, `len`, `list`, `dict`, `range`, and others. Each of the Korean, Spanish, and Farsi dictionary files currently contains 64 mapped items. [code_file:34][code_file:35][code_file:36]
-
-## Project structure
+## 🛠 Project Structure
 
 ```text
 atty/
 ├── setup.py
 ├── atty_interpreter.py
 ├── package.json
+├── .env                  # (You create this for the Gemini API key)
 ├── src/
-│   └── extension.ts
+│   └── extension.ts      # VS Code extension logic
 ├── dicts/
 │   ├── kr_en_complete.json
 │   ├── es_en_complete.json
 │   └── fa_en_complete.json
 └── syntaxes/
-    └── bcit.tmLanguage.json
+    └── atty.tmLanguage.json
 ```
 
-The interpreter looks for dictionary files relative to its own location so it can work both inside the VS Code extension and as an installed CLI tool. [code_file:60][code_file:105]
+## 🚀 Installation & Setup
 
-## Installation
+### 1. VS Code Extension (Easiest Way)
+You can install the Atty VS Code extension directly from our GitHub Releases page!
 
-### 1. Clone the repository
+1. Go to the [Releases page](https://github.com/your-username/your-repo-name/releases) on this repository.
+2. Download the latest `atty-1.0.0.vsix` file.
+3. Open VS Code, go to the **Extensions** tab (`Ctrl+Shift+X`).
+4. Click the three dots (`...`) in the top right corner of the Extensions panel.
+5. Select **Install from VSIX...** and choose the downloaded file.
+6. *Note: You will still need to follow Step 3 below to get AI Error Explanations working!*
 
+### 2. Command Line Tool Installation
+Install the interpreter in editable mode so you can run it from anywhere on your machine:
 ```bash
 git clone <your-repo-url>
 cd atty
-```
-
-
-### 2. Install the CLI in editable mode
-
-```bash
 pip install -e .
 ```
 
-Editable mode is useful during development because changes to the interpreter or dictionaries are picked up without reinstalling the package. [code_file:104]
+### 3. Set up the AI Error Explanations (Gemini API)
+Atty uses Google's Gemini to explain coding errors to beginners. We built this to be **zero-dependency**—it uses Python's built-in `urllib`, so you don't need to install any heavy AI packages!
 
-## CLI usage
+1. Get a free API key from [Google AI Studio](https://aistudio.google.com/).
+2. Create a file named `.env` in the root folder of the project.
+3. Add your key to the file:
+```text
+GEMINI_API_KEY=your_actual_api_key_here
+```
 
+## 💻 Usage
+
+### Command Line Interface
 Run a translated script:
-
 ```bash
 atty path/to/file.atty
 ```
 
-Export the translated English Python file:
-
+Export the translated English Python file (doesn't execute, just translates):
 ```bash
 atty path/to/file.atty --output-py
 ```
 
-The CLI entry point is registered through `setup.py`, mapping the `atty` command to the interpreter’s `main()` function. [code_file:104][code_file:105]
+### VS Code Extension
+1. Open any `.atty` file in VS Code. You will see native syntax highlighting!
+2. Click the **Play** button in the top right of the editor to run the code, or the **Save As** button to export it to `.py`. Output prints directly to the VS Code Output panel.
 
-## VS Code extension
+## 🧠 Technical Highlights (Hackathon Details)
 
-Atty can also run as a VS Code extension. The extension uses TypeScript for the editor integration and calls the Python interpreter in the background. [code_file:82]
+- **Weighted Language Detection**: Since a single letter like `y` means "and" in Spanish but could be a variable in Farsi, the language detection algorithm weights matches by character length to guarantee accuracy.
+- **RTL Terminal Fixes**: Standard developer terminals print Arabic/Farsi characters backwards and disconnected. Atty intercepts Farsi AI translations and uses character-level reversal to ensure they render perfectly Right-to-Left in standard English consoles.
+- **Prompt Engineering**: The Gemini prompt dynamically adjusts based on the language. For Korean, it explicitly instructs the model to use natural, conversational politeness levels (`해요체` or `합쇼체`) rather than robotic technical jargon.
 
-Current extension behavior includes:
+## 📝 Examples
 
-- Running the active file from the editor. [code_file:82]
-- Showing output in a dedicated VS Code output channel. [code_file:82]
-- Forcing UTF-8 output so Korean, Spanish, and Farsi text display correctly on Windows. [code_file:82]
-- Supporting syntax highlighting through a TextMate grammar file. [code_file:103]
-
-
-## Syntax highlighting
-
-Atty includes a `tmLanguage.json` grammar for syntax highlighting. In VS Code, a TextMate grammar provides keyword, string, and comment coloring, but it does **not** perform real syntax validation or semantic analysis. [web:83][web:95]
-
-That means the grammar can make Atty code look like a real programming language in the editor, but proper error squiggles and deeper code validation would require a language server or linter integration. [web:95][web:99]
-
-## AI error explanations with Ollama
-
-Atty can optionally pass Python tracebacks to a locally running Ollama instance and ask a model such as `llama3` to explain the error in the learner’s detected language. [code_file:106]
-
-This keeps execution local while making errors more understandable for beginners. The current interpreter sends requests to `http://localhost:11434/api/generate`. [code_file:106]
-
-To use this feature:
-
-1. Install and run Ollama locally.
-2. Pull a model such as `llama3`.
-3. Run Atty normally and trigger an error in a script. [code_file:106]
-
-## Example
-
-### Spanish
-
+### Spanish (`demo_es.atty`)
 ```python
 imprimir("¡Hola Mundo!")
-
-si Verdadero:
-    imprimir("Bienvenidos al Hackathon")
+edad = 20
+si edad > 18:
+    imprimir("Eres un adulto.")
+sino:
+    imprimir("Eres menor.")
 ```
 
-
-### Korean
-
+### Korean (`demo_kr.atty`)
 ```python
 출력("안녕 세상!")
-
-만약 참:
-    출력("해커톤에 오신 것을 환영합니다!")
+반복 i 안에 범위(3):
+    출력("카운트다운:", i)
 ```
 
-
-### Farsi
-
+### Farsi (`demo_fa.atty`)
 ```python
 چاپ("سلام دنیا!")
-
 اگر درست:
     چاپ("به هکاتون خوش آمدید!")
 ```
-
-These examples follow the same translation approach used by the interpreter: native-language keywords are mapped directly to standard Python before execution. [code_file:29][code_file:34][code_file:35][code_file:36]
-
-## Limitations
-
-Atty currently focuses on **keyword translation**, not full natural-language programming. Variable names and comments are intended to remain as written by the user, while keywords are transliterated into Python equivalents before execution. [code_file:23][code_file:29]
-
-Automatic language detection is based on keyword matching, so mixed-language files or files with very few translated keywords may be harder to classify perfectly. [code_file:29]
-
-Syntax highlighting alone does not provide full syntax-error detection. For advanced validation, linting, or IntelliSense, the next step would be a custom VS Code language server or translation layer that feeds generated Python into existing Python tooling. [web:95][web:101]
-
-## Roadmap
-
-- Better VS Code integration for export and run commands.
-- Language-aware linting and diagnostics.
-- More supported natural languages.
-- Better beginner-facing error explanations.
-- Optional side-by-side translated Python preview.
-
-
-## Inspiration
-
-Atty is built around the idea that programming education should be more accessible to people who do not speak English as their first language.
-
-## License
-
-Add your preferred license here, for example MIT.
-
-```
-
-## Small edits
-A few recommendations before you commit it:
-
-- Rename `bcit.tmLanguage.json` to `atty.tmLanguage.json` so the branding matches the app name everywhere.
-- If your final interpreter file is `atty_interpreter.py`, update the README tree and CLI examples to use that exact filename consistently.
-- If you want, I can also turn this into a shorter hackathon-style README with a demo section, team credits, and a “How we built it” section.```
-
