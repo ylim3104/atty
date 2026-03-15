@@ -1,7 +1,7 @@
 {
   "name": "atty",
   "displayName": "아띠 atty",
-  "publisher": "your-team-name",
+  "publisher": "atty",
   "repository": {"type": "git", "url": "https://github.com/ylim3104/atty"},
   "description": "",
   "version": "0.0.1",
