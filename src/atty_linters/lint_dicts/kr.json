@@ -31,8 +31,7 @@
   },
   "compareNone": {
     "message": "Lint 경고: '== 없음' 대신 '이다 없음'을 사용하세요.",
-    "equal": "==",
-    "none": "none"
+    "none": "없음"
   },
   "bareExcept": {
     "message": "Lint 경고: 포괄적인 '예외:' 블록 대신 구체적인 예외 타입을 명시하는 것이 좋습니다."

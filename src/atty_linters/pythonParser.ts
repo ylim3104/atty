@@ -16,8 +16,8 @@ export class PythonParser{
     }
 
     public updateDiagnostics(document: vscode.TextDocument) {
-        // if (document.languageId !== 'atty') return;
-        if (document.languageId !== 'python') return;
+        if (document.languageId !== 'atty') return;
+        // if (document.languageId !== 'python') return;
 
         const tree = this.parser.parse(document.getText());
         const diagnostics: vscode.Diagnostic[] = [];

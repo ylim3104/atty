@@ -50,9 +50,9 @@ class PythonParser {
         this.language = language;
     }
     updateDiagnostics(document) {
-        // if (document.languageId !== 'atty') return;
-        if (document.languageId !== 'python')
+        if (document.languageId !== 'atty')
             return;
+        // if (document.languageId !== 'python') return;
         const tree = this.parser.parse(document.getText());
         const diagnostics = [];
         const ruleList = new rules_1.Rules(this.language);

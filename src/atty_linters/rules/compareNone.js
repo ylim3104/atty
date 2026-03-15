@@ -55,9 +55,11 @@ class CompareNone extends baseRule_1.BaseRule {
             let hasDoubleEquals = false;
             let hasNone = false;
             for (const child of node.children) {
-                if (child.type === compareNone.equal)
+                const indent = '  '.repeat(depth);
+                console.log(`${indent}   - Child Node: [${child.type}] | Text: ${child.text}`);
+                if (child.type === '==')
                     hasDoubleEquals = true;
-                if (child.type === compareNone.none)
+                if (child.type === 'identifier' && child.text === compareNone.none)
                     hasNone = true;
             }
             if (hasDoubleEquals && hasNone) {
