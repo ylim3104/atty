@@ -1,11 +1,3 @@
-<img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" style="height:64px;margin-right:32px"/>
-
-# can you help me write a README for this?
-
-Yes — here’s a polished README draft you can paste into your repo. It matches the project you’ve built so far: a VS Code extension plus CLI runner, automatic language detection, Korean/Spanish/Farsi dictionaries, optional English `.py` export, and optional local Ollama-based error explanations.
-
-## README draft
-
 ```md
 # Atty
 
