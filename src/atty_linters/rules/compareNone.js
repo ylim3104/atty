@@ -38,19 +38,30 @@ const baseRule_1 = require("./baseRule");
 const vscode = __importStar(require("vscode"));
 class CompareNone extends baseRule_1.BaseRule {
     messages;
+    dictionary;
     constructor(language) {
         super(language);
         try {
-            this.messages = require(`../lint_dicts/kr.json`);
+            this.messages = require(`../lint_dicts/${language}.json`);
+        }
+        catch (e) {
+            console.error('Failed to load lint dictionary:', e);
+        }
+        try {
+            this.dictionary = require(`../../../dicts/${language}_en.json`);
         }
         catch (e) {
             console.error('Failed to load lint dictionary:', e);
         }
     }
+    getKeyByValue(object, value) {
+        return Object.keys(object).find(key => object[key] === value);
+    }
     walk(diagnostics, node, depth = 0) {
         if (!this.messages)
             return;
         const compareNone = this.messages.compareNone;
+        const none = this.getKeyByValue(this.dictionary, "None");
         if (node.type === 'comparison_operator') {
             let hasDoubleEquals = false;
             let hasNone = false;
@@ -59,12 +70,12 @@ class CompareNone extends baseRule_1.BaseRule {
                 console.log(`${indent}   - Child Node: [${child.type}] | Text: ${child.text}`);
                 if (child.type === '==')
                     hasDoubleEquals = true;
-                if (child.type === 'identifier' && child.text === compareNone.none)
+                if (child.type === 'identifier' && child.text === none)
                     hasNone = true;
             }
             if (hasDoubleEquals && hasNone) {
                 const range = new vscode.Range(node.startPosition.row, node.startPosition.column, node.endPosition.row, node.endPosition.column);
-                const diagnostic = new vscode.Diagnostic(range, compareNone.message, vscode.DiagnosticSeverity.Warning);
+                const diagnostic = new vscode.Diagnostic(range, compareNone, vscode.DiagnosticSeverity.Warning);
                 diagnostics.push(diagnostic);
             }
         }
