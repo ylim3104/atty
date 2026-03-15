@@ -37,9 +37,9 @@ atty/
 ├── src/
 │   └── extension.ts      # VS Code extension logic
 ├── dicts/
-│   ├── kr_en_complete.json
-│   ├── es_en_complete.json
-│   └── fa_en_complete.json
+│   ├── kr_en.json
+│   ├── es_en.json
+│   └── fa_en.json
 └── syntaxes/
     └── atty.tmLanguage.json
 ```
