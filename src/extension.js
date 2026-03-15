@@ -40,6 +40,7 @@ exports.deactivate = deactivate;
 const vscode = __importStar(require("vscode"));
 const child_process_1 = require("child_process");
 const path = __importStar(require("path"));
+const pythonParser_1 = require("./atty_linters/pythonParser");
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 function activate(context) {
@@ -49,6 +50,13 @@ function activate(context) {
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with registerCommand
     // The commandId parameter must match the command field in package.json
+    try {
+        (0, pythonParser_1.activate)(context);
+        console.log("Linter activated successfully!");
+    }
+    catch (error) {
+        console.error("Linter failed to start:", error);
+    }
     // Create an output channel so we can show the Python results at the bottom of the screen
     const outputChannel = vscode.window.createOutputChannel("Atty Interpreter");
     const runDisposable = vscode.commands.registerCommand('atty.runCode', () => {
@@ -119,7 +127,9 @@ function activate(context) {
             outputChannel.appendLine("-----------------------------------");
         });
     });
-    context.subscriptions.push(runDisposable, exportDisposable);
+    context.subscriptions.push(runDisposable);
+    context.subscriptions.push(exportDisposable);
+    console.log('Korean Python Linter is now active!');
 }
 // This method is called when your extension is deactivated
 function deactivate() { }
