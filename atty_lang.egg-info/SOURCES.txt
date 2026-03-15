@@ -1,0 +1,11 @@
+README.md
+interpreter.py
+setup.py
+atty_lang.egg-info/PKG-INFO
+atty_lang.egg-info/SOURCES.txt
+atty_lang.egg-info/dependency_links.txt
+atty_lang.egg-info/entry_points.txt
+atty_lang.egg-info/top_level.txt
+dicts/es_en.json
+dicts/fa_en.json
+dicts/kr_en.json
