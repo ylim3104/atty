@@ -1,3 +1,8 @@
+
+<p align="center">
+  <img src="img/AttyLogo.jpg" alt="Atty Logo" width="200"/>
+</p>
+
 # Atty 🌎🐍
 
 Atty is a multilingual Python learning tool that lets beginners write Python-style code using their native language and run it directly. It currently supports **Korean, Spanish, and Farsi**, translating native keywords into standard Python before execution. 
