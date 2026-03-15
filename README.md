@@ -13,6 +13,8 @@ Built for the BCIT Hackathon!
 
 Most beginner programming tools assume the learner already understands English. Atty lowers the barrier to entry by allowing learners to write familiar control flow (`if`, `for`, `while`) and built-in functions (`print`, `input`) in their own language, while still leveraging the full power of Python under the hood.
 
+In addition to multilingual coding, Atty also includes **interactive learning features inside VS Code**. These features help users gradually learn Python keywords in another language through quizzes and interactive translation while writing real code.
+
 ## ✨ Features
 
 - **Native Language Coding**: Write code using translated keywords in Korean, Spanish, or Farsi.
@@ -84,6 +86,93 @@ Export the translated English Python file (doesn't execute, just translates):
 ```bash
 atty path/to/file.atty --output-py
 ```
+
+```markdown
+## 🧪 Testing the VS Code Learning Features
+
+Atty includes interactive learning features inside the VS Code extension such as **typing quizzes, inline hints, and a learning mode**.
+
+Judges can easily test these features using the following steps.
+
+### Run the Extension in Development Mode
+
+1. Open the project folder in **VS Code**.
+2. Install dependencies:
+
+```bash
+npm install
+
+Compile the extension:
+npm run compile
+
+Press F5 to launch the Extension Development Host window.
+This new window is the testing environment where the extension runs.
+
+Feature 1: Select Working Language
+Before using the quiz or learning features, select a working language.
+
+Open the Command Palette:
+Ctrl + Shift + P
+
+Run:
+"Select Working Language"
+
+Choose one of the supported languages:
+Korean
+Spanish
+Farsi
+
+The selected language determines which dictionary the extension uses for translations.
+
+
+### Typing Quiz Mode
+
+Typing Quiz Mode quizzes the user while they are writing Python code.
+
+How it works:
+When a user types an English Python keyword and finishes the word using a trigger character (such as space or (), the extension displays a multiple-choice quiz asking for the correct translation.
+If the user selects the correct answer, the English keyword is replaced with the translated word.
+
+Example:
+
+If the selected language is Korean and the user types:
+print(
+
+a quiz popup will appear with translation choices.
+
+Selecting the correct option replaces the word:
+출력(
+Suggested words to test
+print
+if
+for
+return
+def
+else
+while
+input
+
+
+### Learning Mode
+
+Learning Mode scans the current Python file and quizzes the user on detected Python keywords.
+How to run it
+
+Open a Python file such as:
+def greet():
+    print("Hello")
+
+if True:
+    for i in range(3):
+        print(i)
+else:
+    return
+
+Open the Command Palette and run:
+"Start Learning Mode"
+The extension will ask translation questions one keyword at a time.
+Correct answers replace the English keywords in the file.
+
 
 ### VS Code Extension
 1. Open any `.atty` file in VS Code. You will see native syntax highlighting!
