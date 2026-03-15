@@ -1,0 +1,22 @@
+{
+    "syntaxMissingColon": "Error de Lint: Falta el signo de dos puntos (:) al final de declaraciones como 'si', 'función', 'bucle' o 'clase'.",
+    "indentationError": "Error de Lint: La indentación es incorrecta. Asegúrate de que los bloques de código tengan una indentación consistente.",
+    "undefinedName": "Error de Lint: Se llamó a una variable o 'función' que no está definida.",
+    "typeError": "Error de Lint: Operación entre tipos incompatibles. (Ejemplo: combinación directa de 'entero' y 'cadena')",
+    "missingArgument": "Error de Lint: El número de parámetros requeridos en la llamada de la 'función' no coincide.",
+    "returnOutsideFunction": "Error de Lint: 'retornar' solo puede usarse dentro de una 'función'.",
+    "breakOutsideLoop": "Error de Lint: 'romper' o 'continuar' solo pueden usarse dentro de bucles 'para' o 'mientras'.",
+    "unclosedBracketOrString": "Error de Lint: Las comillas de una 'cadena' o los paréntesis de una 'lista' o 'diccionario' no están cerrados.",
+    "importNotFound": "Error de Lint: No se pudo encontrar el módulo o archivo especificado en 'importar'.",
+    "zeroDivisionError": "Error de Lint: No se puede dividir un número entre 0.",
+    "compareNone": "Advertencia de Lint: Usa 'es ninguno' en lugar de '== ninguno'.",
+    "bareExcept": "Advertencia de Lint: Es mejor especificar un tipo de excepción en lugar de usar un bloque genérico 'excepto:'.",
+    "unusedImport": "Advertencia de Lint: El elemento importado con 'importar' no se utiliza en el código.",
+    "unreachableCode": "Advertencia de Lint: El código escrito después de 'retornar' o 'romper' nunca se ejecutará.",
+    "redefinedBuiltin": "Advertencia de Lint: No sobrescribas palabras reservadas internas como 'imprimir', 'lista' o 'longitud' como nombres de variables.",
+    "mutableDefaultArg": "Advertencia de Lint: No uses objetos mutables como 'lista', 'diccionario' o 'conjunto' como parámetros predeterminados de una 'función'.",
+    "useEnumerate": "Advertencia de Lint: En lugar de usar 'rango(longitud())', usa 'enumerar' para recorrer índices y valores de forma más segura.",
+    "fileNotClosed": "Advertencia de Lint: Los archivos abiertos con 'abrir' deben cerrarse con 'cerrar' o usando un bloque 'con' para evitar fugas.",
+    "unusedVariable": "Advertencia de Lint: Una variable fue declarada pero nunca se utilizó posteriormente en el código.",
+    "useDictComprehension": "Advertencia de Lint: En lugar de crear un 'diccionario' o 'lista' vacío y llenarlo con un bucle, considera usar comprensión."
+}

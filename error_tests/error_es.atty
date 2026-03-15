@@ -4,3 +4,40 @@ edad = 20
 
 # This will trigger a TypeError
 imprimir(nombre + edad)
+
+
+
+función sumar(a, b):
+    retornar a + b
+
+resultado = sumar(5)
+
+
+
+나이 = 15
+
+만약 나이 > 18
+    출력("성인")
+아니면:
+    출력("미성년자")
+학생 = 15
+
+나이 = 15
+
+만약 나이 > 18
+    출력("성인")
+아니면:
+    출력("미성년자")
+학생 = 15
+
+나이 = 15
+
+만약 나이 > 18
+    출력("성인")
+아니면:
+    출력("미성년자")
+학생 = 15
+f
+sefsefesfesf
+
+fsefsef
