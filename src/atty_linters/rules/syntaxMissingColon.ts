@@ -41,7 +41,7 @@ export class SyntaxMissingColon extends BaseRule {
 
 
         if (keywordChild && !hasColon) {
-            const blockTypes = ['if_statement', 'for_statement', 'function_definition', 'class_definition', 'ERROR'];
+            const blockTypes = ['if_statement', 'for_statement', 'function_definition', 'class_definition', 'while_statement', 'ERROR'];
 
             if (blockTypes.includes(node.type)) {
                 const range = new vscode.Range(

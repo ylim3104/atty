@@ -71,7 +71,7 @@ class SyntaxMissingColon extends baseRule_1.BaseRule {
         const keywordChild = node.children.find(child => this.keywords.has(child.text));
         const hasColon = node.children.some(child => child.type === ':' || child.text === ':');
         if (keywordChild && !hasColon) {
-            const blockTypes = ['if_statement', 'for_statement', 'function_definition', 'class_definition', 'ERROR'];
+            const blockTypes = ['if_statement', 'for_statement', 'function_definition', 'class_definition', 'while_statement', 'ERROR'];
             if (blockTypes.includes(node.type)) {
                 const range = new vscode.Range(node.startPosition.row, node.startPosition.column, node.endPosition.row, node.endPosition.column);
                 const diagnostic = new vscode.Diagnostic(range, this.messages.syntaxMissingColon, vscode.DiagnosticSeverity.Error);

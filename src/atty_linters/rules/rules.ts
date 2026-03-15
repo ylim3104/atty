@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 import Parser = require('tree-sitter');
 import { CompareNone } from './compareNone';
 import { SyntaxMissingColon } from './syntaxMissingColon';
+import { IndentationError } from './indentationError';
 
 export class Rules {
     language: string;
