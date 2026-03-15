@@ -1,0 +1,16 @@
+# Hello World in Farsi
+چاپ("سلام دنیا! (Hello World)")
+
+تابع salam_kardan(esm):
+    اگر esm == "BCIT":
+        بازگشت "Be Hackathon khosh amadid!"
+    درغیراین‌صورت:
+        بازگشت "Salam, " + esm
+
+چاپ(salam_kardan("BCIT"))
+
+تلاش:
+    برای i در محدوده(3):
+        چاپ("Shomaresh:", i)
+بجز:
+    چاپ("Yek khata rokh dad!")
