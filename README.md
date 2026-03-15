@@ -202,6 +202,7 @@ si edad > 18:
     imprimir("Eres un adulto.")
 sino:
     imprimir("Eres menor.")
+```
 
 
 ### Korean (`demo_kr.atty`)
