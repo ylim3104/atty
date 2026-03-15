@@ -97,7 +97,6 @@ atty path/to/file.atty
 atty path/to/file.atty --output-py
 
 
-```markdown
 ## 🧪 Testing the VS Code Learning Features
 
 Atty includes interactive learning features inside the VS Code extension such as **typing quizzes, inline hints, and a learning mode**.
@@ -137,7 +136,7 @@ The selected language determines which dictionary the extension uses for transla
 
 ### Typing Quiz Mode
 
-Typing Quiz Mode quizzes the user while they are writing Python code.
+Typing Quiz Mode quizzes the user while they are writing ** Python ** code.
 
 How it works:
 When a user types an English Python keyword and finishes the word using a trigger character (such as space or (), the extension displays a multiple-choice quiz asking for the correct translation.
@@ -145,10 +144,9 @@ If the user selects the correct answer, the English keyword is replaced with the
 
 Example:
 
-If the selected language is Korean and the user types:
-print(
+If the selected language is Korean and the user types something like: print(
 
-a quiz popup will appear with translation choices.
+then a quiz popup will appear with translation choices.
 
 Selecting the correct option replaces the word:
 출력(
@@ -165,7 +163,7 @@ input
 
 ### Learning Mode
 
-Learning Mode scans the current Python file and quizzes the user on detected Python keywords.
+Learning Mode scans the current Python file and quizzes the user on detected ** Python ** keywords.
 How to run it
 
 Open a Python file such as:
@@ -204,7 +202,7 @@ si edad > 18:
     imprimir("Eres un adulto.")
 sino:
     imprimir("Eres menor.")
-```
+
 
 ### Korean (`demo_kr.atty`)
 ```python
