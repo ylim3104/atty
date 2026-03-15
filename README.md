@@ -21,6 +21,9 @@ In addition to multilingual coding, Atty also includes **interactive learning fe
 - **Auto-Language Detection**: Atty automatically detects the language of a source file based on keyword weighting.
 - **Seamless Execution**: Translates code into standard Python and executes it instantly in memory.
 - **VS Code Extension**: Run code directly from the editor with a custom "Play" button, and enjoy native syntax highlighting via our custom `.tmLanguage.json` TextMate grammar.
+- **Interactive Typing Quiz**: While writing Python code, Atty can quiz the user on Python keywords by showing multiple-choice translations in the selected language. Correct answers automatically replace the keyword in the editor.
+- **Learning Mode**: Scan an existing Python file and quiz the user on detected Python keywords one by one, helping learners reinforce vocabulary while working with real code.
+- **Multi-Language Learning Support**: Users can select their working language (Korean, Spanish, or Persian), and the extension dynamically loads the corresponding dictionary.
 - **CLI Tool**: Run `atty file.atty` directly from your terminal.
 - **Export to Python**: Optionally export your code to a standard English `.py` file to share with others.
 - **Built-in Linter Rules**: Helps beginners catch common syntax mistakes early with specific checks like `syntaxMissingColon` and `compareNone`.
