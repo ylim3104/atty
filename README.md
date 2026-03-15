@@ -76,16 +76,23 @@ GEMINI_API_KEY=your_actual_api_key_here
 
 ## 💻 Usage
 
-### Command Line Interface
-Run a translated script:
-```bash
-atty path/to/file.atty
-```
+### VS Code Extension (Recommended)
+Once the extension is installed, using Atty is incredibly easy:
+1. Open any `.atty` file in VS Code. You will instantly see your native language keywords light up with our custom syntax highlighting.
+2. **To Run Code**: Look at the top-right corner of the editor window. Click the **Play Button (▶)** to execute your file. The output (and any AI-translated errors) will print directly into the VS Code Output panel at the bottom of your screen.
+3. **To Export Code**: Click the **Save-As Button (💾)** right next to the Play button. This will automatically generate a standard English `.py` file right next to your original script, containing the fully translated code!
 
-Export the translated English Python file (doesn't execute, just translates):
+*(Alternatively, you can right-click any `.atty` file in the left sidebar and select **Atty: Export to Python (.py)**).*
+
+### Command Line Interface
+If you prefer the terminal, you can run files just like standard Python:
 ```bash
+# Run a translated script
+atty path/to/file.atty
+
+# Export the translated English Python file (doesn't execute, just translates)
 atty path/to/file.atty --output-py
-```
+
 
 ```markdown
 ## 🧪 Testing the VS Code Learning Features
