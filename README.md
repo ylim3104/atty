@@ -95,7 +95,7 @@ atty path/to/file.atty
 
 # Export the translated English Python file (doesn't execute, just translates)
 atty path/to/file.atty --output-py
-
+```
 
 ## 🧪 Testing the VS Code Learning Features
 
