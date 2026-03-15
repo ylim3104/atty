@@ -41,6 +41,22 @@
         "command": "atty.exportPython",
         "title": "Atty: Export to Python (.py)",
         "icon": "$(save-as)"
+      },
+      {
+        "command": "atty.helloWorld",
+        "title": "Hello World"
+      },
+      {
+        "command": "atty.startLearningMode",
+        "title": "Start Learning Mode"
+      },
+      {
+        "command": "atty.replaceWord",
+        "title": "Replace Word With Translation"
+      },
+      {
+        "command": "atty.selectLanguage",
+        "title": "Select Working Language"
       }
     ],
     "menus": {
