@@ -9,13 +9,31 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+  "onCommand:atty.helloWorld",
+  "onCommand:atty.startLearningMode",
+  "onCommand:atty.selectLanguage",
+  "onCommand:atty.replaceWord",
+  "onLanguage:python"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "atty.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "atty.startLearningMode",
+        "title": "Start Learning Mode"
+      },
+      {
+        "command": "atty.replaceWord",
+        "title": "Replace Word With Translation"
+      },
+      {
+        "command": "atty.selectLanguage",
+        "title": "Select Working Language"
       }
     ]
   },
