@@ -14,7 +14,7 @@
   "activationEvents": [
     "onLanguage:python"
   ],
-  "main": "./src/atty_linters/pythonParser.js",
+  "main": "./dist/extension.js",
   "contributes": {
     "languages": [
       {

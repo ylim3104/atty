@@ -4,6 +4,8 @@ import * as vscode from 'vscode';
 import { exec } from 'child_process';
 import * as path from 'path';
 
+import { activate as activateLinter } from './atty_linters/pythonParser';
+
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -15,6 +17,13 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
+
+	try {
+			activateLinter(context);
+			console.log("Linter activated successfully!");
+	} catch (error) {
+			console.error("Linter failed to start:", error);
+	}
 
 	// Create an output channel so we can show the Python results at the bottom of the screen
 	const outputChannel = vscode.window.createOutputChannel("Atty Interpreter");
@@ -58,39 +67,42 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	let exportDisposable = vscode.commands.registerCommand('atty.exportPython', (uri: vscode.Uri) => {
-        // Handle right-click (uri is passed) OR title bar click (active editor)
-        let filePath = "";
-        if (uri && uri.fsPath) {
-            filePath = uri.fsPath;
-        } else if (vscode.window.activeTextEditor) {
-            filePath = vscode.window.activeTextEditor.document.uri.fsPath;
-        } else {
-            vscode.window.showErrorMessage("No file selected!");
-            return;
-        }
+		// Handle right-click (uri is passed) OR title bar click (active editor)
+		let filePath = "";
+		if (uri && uri.fsPath) {
+				filePath = uri.fsPath;
+		} else if (vscode.window.activeTextEditor) {
+				filePath = vscode.window.activeTextEditor.document.uri.fsPath;
+		} else {
+				vscode.window.showErrorMessage("No file selected!");
+				return;
+		}
 
-        const extensionPath = context.extensionPath;
-        const pythonScript = path.join(extensionPath, 'interpreter.py');
+		const extensionPath = context.extensionPath;
+		const pythonScript = path.join(extensionPath, 'interpreter.py');
 
-        outputChannel.show(true);
-        outputChannel.appendLine(`Exporting ${path.basename(filePath)} to Python...\n`);
+		outputChannel.show(true);
+		outputChannel.appendLine(`Exporting ${path.basename(filePath)} to Python...\n`);
 
-        const options = {
-            env: { ...process.env, PYTHONIOENCODING: 'utf-8' }
-        };
+		const options = {
+				env: { ...process.env, PYTHONIOENCODING: 'utf-8' }
+		};
 
-        // Notice the --output-py flag added here
-        exec(`python "${pythonScript}" "${filePath}" --output-py`, options, (error, stdout, stderr) => {
-            if (stdout) { outputChannel.appendLine(stdout); }
-            if (stderr) { outputChannel.appendLine(`ERROR:\n${stderr}`); }
-            if (error) { outputChannel.appendLine(`EXECUTION ERROR:\n${error.message}`); }
+		// Notice the --output-py flag added here
+		exec(`python "${pythonScript}" "${filePath}" --output-py`, options, (error, stdout, stderr) => {
+				if (stdout) { outputChannel.appendLine(stdout); }
+				if (stderr) { outputChannel.appendLine(`ERROR:\n${stderr}`); }
+				if (error) { outputChannel.appendLine(`EXECUTION ERROR:\n${error.message}`); }
 
-            vscode.window.showInformationMessage("Successfully exported to .py!");
-            outputChannel.appendLine("-----------------------------------");
-        });
-    });
+				vscode.window.showInformationMessage("Successfully exported to .py!");
+				outputChannel.appendLine("-----------------------------------");
+		});
+	});
 
-	context.subscriptions.push(runDisposable, exportDisposable);
+	context.subscriptions.push(runDisposable);
+	context.subscriptions.push(exportDisposable);
+
+	console.log('Korean Python Linter is now active!');
 }
 
 // This method is called when your extension is deactivated
