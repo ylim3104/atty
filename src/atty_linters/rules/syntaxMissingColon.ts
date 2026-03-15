@@ -2,16 +2,17 @@ import { BaseRule } from './baseRule';
 import * as vscode from 'vscode';
 import Parser = require('tree-sitter');
 
-export class CompareNone extends BaseRule {
+export class SyntaxMissingColon extends BaseRule {
     private messages: any;
     private dictionary: any;
+    private keywords: Set<string> = new Set();
 
     constructor(language: string) {
         super(language);
         try {
             this.messages = require(`../lint_dicts/${language}.json`);
         } catch (e) {
-            console.error('Failed to load lint dictionary:', e);
+            console.error('Failed to                                    load lint dictionary:', e);
         }
 
         try {
@@ -19,28 +20,30 @@ export class CompareNone extends BaseRule {
         } catch (e) {
             console.error('Failed to load lint dictionary:', e);
         }
+
+        this.keywords = new Set();
+        this.initializeKeywords();
     }
 
-    private getKeyByValue(object: any, value: any) {
-        return Object.keys(object).find(key => object[key] === value);
+    private initializeKeywords() {
+        const targets = ["if", "elif", "else", "for", "while", "def", "class", "try"];
+        targets.forEach(val => {
+            const key = Object.keys(this.dictionary).find(k => this.dictionary[k] === val);
+            if (key) this.keywords.add(key);
+        });
     }
 
     public walk(diagnostics: vscode.Diagnostic[], node: Parser.SyntaxNode, depth: number = 0) {
         if (!this.messages) return;
 
-        const compareNone = this.messages.compareNone;
-        const none = this.getKeyByValue(this.dictionary, "None");
+        const keywordChild = node.children.find(child => this.keywords.has(child.text));
+        const hasColon = node.children.some(child => child.type === ':' || child.text === ':');
 
-        if (node.type === 'comparison_operator') {
-            let hasDoubleEquals = false;
-            let hasNone = false;
 
-            for (const child of node.children) {
-                if (child.type === '==') hasDoubleEquals = true;
-                if (child.type === 'identifier' && child.text === none) hasNone = true;
-            }
+        if (keywordChild && !hasColon) {
+            const blockTypes = ['if_statement', 'for_statement', 'function_definition', 'class_definition', 'ERROR'];
 
-            if (hasDoubleEquals && hasNone) {
+            if (blockTypes.includes(node.type)) {
                 const range = new vscode.Range(
                     node.startPosition.row, node.startPosition.column,
                     node.endPosition.row, node.endPosition.column
@@ -48,16 +51,17 @@ export class CompareNone extends BaseRule {
 
                 const diagnostic = new vscode.Diagnostic(
                     range,
-                    compareNone,
-                    vscode.DiagnosticSeverity.Warning
+                    this.messages.syntaxMissingColon,
+                    vscode.DiagnosticSeverity.Error
                 );
 
                 diagnostics.push(diagnostic);
             }
         }
 
+
         for (const child of node.children) {
-            this.walk(diagnostics, child, depth + 1);
+            this.walk(diagnostics, child);
         }
     }
 }

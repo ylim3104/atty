@@ -2,6 +2,7 @@ import { BaseRule } from "./baseRule"
 import * as vscode from 'vscode';
 import Parser = require('tree-sitter');
 import { CompareNone } from './compareNone';
+import { SyntaxMissingColon } from './syntaxMissingColon';
 
 export class Rules {
     language: string;
@@ -9,7 +10,7 @@ export class Rules {
     
     constructor(language: string) {
         this.language = language;
-        this.ruleList = [new CompareNone(language)];
+        this.ruleList = [new CompareNone(language), new SyntaxMissingColon(language)];
     }
 
     public run(diagnostics: vscode.Diagnostic[], node: Parser.SyntaxNode) {
