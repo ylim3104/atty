@@ -193,6 +193,7 @@ Correct answers replace the English keywords in the file.
 - **Prompt Engineering**: The Gemini prompt dynamically adjusts based on the language. For Korean, it explicitly instructs the model to use natural, conversational politeness levels (`해요체` or `합쇼체`) rather than robotic technical jargon.
 
 ## 📝 Examples
+```
 
 ### Spanish (`demo_es.atty`)
 ```python
